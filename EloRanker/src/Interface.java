@@ -77,6 +77,7 @@ public class Interface extends JFrame{
     public void setPlayers(Player p1,Player p2) {
         this.p1 = p1;
         this.p2 = p2;
+
         jb1.setIcon(new ImageIcon("Images/"+p1.getFileName()+".jpg"));//going to need to load individual photo
         jb2.setIcon(new ImageIcon("Images/"+p2.getFileName()+".jpg"));//going to need to load each individual photo
 

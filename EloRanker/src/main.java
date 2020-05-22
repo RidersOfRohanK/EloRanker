@@ -10,12 +10,14 @@ public class main {
         Player Rishabh = new Player("Rishabh","Rishabh");
         Player Kavin = new Player("Kavin","Kavin");
         Player Chad = new Player("Chad","Chad");
+        Player Swolal = new Player("Swolal","Swolal");
 
         players.add(Rohan);
         players.add(Pras);
         players.add(Rishabh);
         players.add(Kavin);
         players.add(Chad);
+        players.add(Swolal);
 
 
 
