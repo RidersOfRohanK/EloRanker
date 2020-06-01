@@ -3,14 +3,13 @@ public class Player {
     private String name;
     private String fileName;
 
-    public Player(String name,String fileName){
+    public Player(String name, String fileName) {
         this.name = name;
         rating = 1000; //default rating
         this.fileName = fileName;
-
     }
 
-    public Player(String name,float rating,String fileName){
+    public Player(String name, float rating, String fileName) {
         this.name = name;
         this.rating = rating;
         this.fileName = fileName;

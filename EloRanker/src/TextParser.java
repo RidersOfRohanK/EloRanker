@@ -27,22 +27,66 @@ public class TextParser {
     private void parseText(String text) {
         if (text.equals("Leaderboard") || text.equals("leaderboard") || text.equals("leaderboards") || text.equals("Leaderboards")) {
             createLeaderboard();
-        }
-        if (text.equals("add player") || text.equals("Add player") || text.equals("add Player") || text.equals("Add Player")
+        } else if (text.equals("add player") || text.equals("Add player") || text.equals("add Player") || text.equals("Add Player")
                 || text.equals("add") || text.equals("Add") || text.equals("new player") || text.equals("New player")
                 || text.equals("new Player") || text.equals("New Player") || text.equals("new") || text.equals("New")) {
             addPlayer();
+        } else if (text.equals("remove") || text.equals("Remove") || text.equals("remove player")
+                || text.equals("Remove player") || text.equals("remove Player") || text.equals("Remove Player")) {
+            removePlayer();
+        } else if (text.equals("save") || text.equals("Save") || text.equals("save rankings") || text.equals("Save rankings") || text.equals("save Rankings") || text.equals("Save Rankings")) {
+            saveRankings();
         }
+
+    }
+
+    private void saveRankings() {
+        Writer w = new Writer();
+        w.write();
+    }
+
+    private void removePlayer() {
+        String nameOfPlayer = JOptionPane.showInputDialog("What is the name of the player you want to remove?");
+        boolean isValidName = checkNames(nameOfPlayer);
+        if (isValidName) {
+            removePlayerFromList(nameOfPlayer);
+            JOptionPane.showMessageDialog(JOptionPane.getRootFrame(), "Removed");
+        } else {
+            JOptionPane.showMessageDialog(JOptionPane.getRootFrame(), "Sorry there is no player with that name");
+        }
+
+    }
+
+    private void removePlayerFromList(String nameOfPlayer) {
+        for (int i = 0; i < main.players.size(); i++) {
+            Player p = main.players.get(i);
+            String playerName = p.getName();
+            if (nameOfPlayer.equals(playerName)) {
+                main.players.remove(i);
+                return;
+            }
+        }
+    }
+
+    private boolean checkNames(String nameOfPlayer) {
+        for (int i = 0; i < main.players.size(); i++) {
+            Player p = main.players.get(i);
+            String playerName = p.getName();
+            if (nameOfPlayer.equals(playerName)) {
+                return true;
+            }
+        }
+        return false;
     }
 
     private void addPlayer() {
         String filename = getImage();
 
-        if(hasImage) {
+        if (hasImage) {
             Player p = makePlayer(filename);
             main.players.add(p);
+            JOptionPane.showMessageDialog(JOptionPane.getRootFrame(), "Added");
         }
-
     }
 
     private Player makePlayer(String filename) {
@@ -61,7 +105,6 @@ public class TextParser {
 
         String directory = dialog.getDirectory();
         String filename = dialog.getFile();
-
 
         moveImagetoImagesFolder(directory, filename);
 
@@ -86,7 +129,6 @@ public class TextParser {
         } catch (IOException e) {
             System.out.println("Error: " + e);
         }
-
     }
 
     private void doValidWrite(BufferedImage image, String filename) {
@@ -107,18 +149,15 @@ public class TextParser {
                     writeImage(image, filename);
                     hasImage = true;
                 } else {
-                        JOptionPane.showMessageDialog(JOptionPane.getRootFrame(),"That filename is unavailable");
-                        hasImage = false;
+                    JOptionPane.showMessageDialog(JOptionPane.getRootFrame(), "That filename is unavailable");
+                    hasImage = false;
                 }
-
             }
         }
-
     }
 
-
     private boolean fileNameisValid(String filename) {
-        if(filename.contains(".")) {
+        if (filename.contains(".")) {
             filename = filename.substring(0, filename.indexOf("."));
         }
         for (int i = 0; i < main.players.size(); i++) {
@@ -128,20 +167,17 @@ public class TextParser {
             if (playerFilename.equals(filename)) {
                 return false;
             }
-
-
         }
 
         return true;
-    }//DOESNT WORK
+    }
 
     private BufferedImage readImage(BufferedImage image, String directory, String filename) {
         // READ IMAGE
         try {
             File input_file = new File(directory + filename); //image file path
 
-            image = new BufferedImage(IMAGE_WIDTH, IMAGE_HEIGHT,
-                    BufferedImage.TYPE_INT_ARGB);
+
             // Reading input file
             image = ImageIO.read(input_file);
 
@@ -166,9 +202,7 @@ public class TextParser {
     private void copyPlayersList(ArrayList<Player> playersCopy) {
 
         for (int i = 0; i < main.players.size(); i++) {
-
             playersCopy.add(main.players.get(i));
-
         }
     }
 
@@ -178,17 +212,14 @@ public class TextParser {
 
             playersCopy.remove(player);
             rankedPlayers.add(player);
-
         }
     }
 
     private void printLeaderboard(ArrayList<Player> rankedPlayers) {
 
         for (int i = 0; i < rankedPlayers.size(); i++) {
-
             Player p = rankedPlayers.get(i);
             System.out.println(i + 1 + ")" + p.getName() + " - " + p.getRating());
-
         }
     }
 
